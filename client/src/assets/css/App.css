@@ -1,38 +1,74 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;700&display=swap');
+
+:root {
+    --light-cyan: hsl(193, 38%, 86%);
+    --neon-green: hsl(150, 100%, 66%);
+    --grayish-blue: hsl(217, 19%, 38%);
+    --dark-grayish-blue: hsl(217, 19%, 24%);
+    --dark-blue: hsl(218, 23%, 16%);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+    font-family: 'Manrope', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--dark-blue);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.card {
+    position: relative;
+    background-color: var(--dark-grayish-blue);
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    border-radius: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+.divider {
+    width: 100%;
+    margin: 1.5rem 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.advice {
+    font-size: .7rem;
+    margin-bottom: 1rem;
+    color: var(--neon-green);
+    font-weight: bolder;
+    text-transform:  uppercase;
+    letter-spacing: 2px;
+}
+
+.text-container {
+    color: var(--light-cyan);
+    font-weight: bold;
+    font-size: 28px;
+}
+
+button {
+    display: flex;
+    background-color: var(--neon-green);
+    border: none;
+    padding: .7rem;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -8%;
+    cursor: pointer;
+    transition: box-shadow .2s ease-in-out;
+}
+
+button img {
+    width: 20px;
+    height: 20px;
+}
+
+button:hover {
+    box-shadow: var(--neon-green) 0px 0px 20px;
 }
