@@ -1,4 +1,5 @@
 const connection = require("../services/connection");
+const jwt = require("jsonwebtoken");
 
 class UserModel {
   async getByEmail(email) {
@@ -17,6 +18,12 @@ class UserModel {
         password,
       ]);
     return result;
+  }
+
+  async generateToken(user) {
+    const { id, email } = user;
+    const token = await jwt.sign({ id, email }, process.env.JWT_SECRET);
+    return token;
   }
 }
 
