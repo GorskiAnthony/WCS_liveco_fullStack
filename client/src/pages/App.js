@@ -1,11 +1,23 @@
 import React from "react";
+import { Routes, Route } from "react-router-dom";
 import Card from "../components/Card";
-import "../assets/css/App.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import Register from "./Register";
+import Login from "./Login";
 
 const App = () => {
   return (
     <div className="container">
-      <Card />
+      <Navbar />
+      <div className="flexGrow">
+        <Routes>
+          <Route path="/" element={<Card />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </div>
+      <Footer />
     </div>
   );
 };
