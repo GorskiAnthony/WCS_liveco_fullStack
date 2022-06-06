@@ -15,7 +15,7 @@ const Register = () => {
         </label>
         <label>
           Confirme Password:
-          <input type="password" name="confirme-password" />
+          <input type="password" name="repeat_password" />
         </label>
         <input type="submit" value="Go!" />
       </form>
