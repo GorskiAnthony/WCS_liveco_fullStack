@@ -1,15 +1,15 @@
 import React from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { notifySuccessRegister, notifyErrorRegister } from "../services/notify";
+import { notifySuccess, notifyError } from "../services/notify";
 
 const Register = () => {
-  const navigate = useNavigate();
   const [register, setRegister] = React.useState({
     email: "",
     password: "",
     repeat_password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setRegister({
@@ -21,19 +21,19 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (register.password !== register.repeat_password) {
-      notifyErrorRegister("Passwords do not match");
+      notifyError("Passwords do not match");
       return;
     }
     axios
       .post("http://localhost:5500/api/auth/register", register)
       .then(() => {
-        notifySuccessRegister();
+        notifySuccess();
         // redirect to login page
         return navigate("/login");
       })
       .catch((err) => {
         const error = err.response.data;
-        notifyErrorRegister(error.validationErrors[0].message);
+        notifyError(error.validationErrors[0].message);
       });
   };
 

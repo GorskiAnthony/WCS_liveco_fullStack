@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { notifySuccessRegister, notifyErrorRegister } from "../services/notify";
+import { notifySuccess, notifyError } from "../services/notify";
+import CurrentUserContext from "../context/CurrentUserContext";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [login, setLogin] = React.useState({
     email: "",
     password: "",
   });
+
+  const { setCurrentUser } = useContext(CurrentUserContext);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setLogin({
@@ -20,15 +23,18 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5500/api/auth/login", login)
-      .then(() => {
-        notifySuccessRegister();
+      .post("http://localhost:5500/api/auth/login", login, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        notifySuccess();
+        setCurrentUser(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data));
         return navigate("/");
       })
       .catch((err) => {
-        console.log(err);
         const error = err.response.data;
-        notifyErrorRegister(error.validationErrors[0].message);
+        notifyError(error.validationErrors[0].message);
       });
   };
 

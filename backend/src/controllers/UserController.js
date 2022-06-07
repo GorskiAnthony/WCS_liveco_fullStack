@@ -52,13 +52,17 @@ class UserController {
           if (isValid) {
             const token = await UserModel.generateToken(user);
             res
-              .cookie("token", token, {
+              .cookie("user_token", token, {
                 httpOnly: true,
                 maxAge: 1000 * 60 * 60 * 24 * 7,
                 sameSite: "strict",
               })
               .status(200)
-              .json({ id: user.id, email: user.email });
+              .json({
+                id: user.id,
+                email: user.email,
+                avatar: user.avatar,
+              });
           } else {
             res
               .status(401)
@@ -72,6 +76,25 @@ class UserController {
       }
     } catch (err) {
       res.status(400).json({ validationErrors: [{ message: err.message }] });
+    }
+  }
+
+  static async logout(req, res) {
+    try {
+      res
+        .clearCookie("token")
+        .status(200)
+        .json({ message: "Logout successful" });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+
+  static async update(req, res) {
+    try {
+      res.status(204).json({ message: "Update successful" });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
     }
   }
 }

@@ -5,19 +5,22 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 // Routes
 const authRouter = require("./routes/authRouter");
-const favoriteRouter = require("./routes/favoriteRouter");
+const userRouter = require("./routes/userRouter");
 
+app.use(cookieParser());
 app.use(logger("dev"));
+
 app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
+    optionsSuccessStatus: 200,
   })
 );
-app.use(cookieParser());
+
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
-app.use("/api/users", favoriteRouter);
+app.use("/api/users", userRouter);
 
 module.exports = app;

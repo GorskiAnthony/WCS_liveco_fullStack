@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
-const notifySuccessRegister = () => {
-  toast.success("Successfully registered", {
+const notifySuccess = () => {
+  toast.success("Successfully", {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -11,8 +11,8 @@ const notifySuccessRegister = () => {
     progress: undefined,
   });
 };
-const notifyErrorRegister = (data) => {
-  toast.error(`Error registering: ${data}`, {
+const notifyError = (data) => {
+  toast.error(`Error : ${data}`, {
     position: "top-right",
     autoClose: 5000,
     hideProgressBar: false,
@@ -23,4 +23,4 @@ const notifyErrorRegister = (data) => {
   });
 };
 
-export { notifySuccessRegister, notifyErrorRegister };
+export { notifySuccess, notifyError };

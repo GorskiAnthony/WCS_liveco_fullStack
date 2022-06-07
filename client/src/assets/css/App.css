@@ -60,7 +60,7 @@
     flex-grow: 1;
 }
 
-button {
+button, .updateProfile {
     display: flex;
     background-color: var(--neon-green);
     border: none;
@@ -184,3 +184,19 @@ footer a {
     color: var(--dark-grayish-blue);
 }
 
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header img {
+    background-color: var(--dark-blue);
+    width: 5rem;
+    border-radius: 50%;
+    height: 100%;
+}
+
+.pointer {
+    cursor: pointer;
+}
