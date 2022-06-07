@@ -43,8 +43,8 @@ const Profile = () => {
           alt="avatar"
         />
       </header>
-      <p>This is your profile</p>
-      <form onSubmit={handleSubmit}>
+      <p className="desc">This is your profile</p>
+      <form onSubmit={handleSubmit} className="formProfil">
         <div>
           <label>Email</label>
           <input
@@ -53,6 +53,7 @@ const Profile = () => {
             onChange={handleChange}
             value={currentUser.email}
           />
+          <input type="file" />
         </div>
         <input type="submit" value="Mettre à jour" />
       </form>

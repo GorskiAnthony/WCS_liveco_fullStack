@@ -188,6 +188,8 @@ footer a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--neon-green);
+    margin-bottom: .5rem;
 }
 
 .header img {
@@ -199,4 +201,45 @@ footer a {
 
 .pointer {
     cursor: pointer;
+}
+
+.desc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--light-cyan);
+    margin-bottom: .5rem;
+}
+
+.formProfil {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--light-cyan);
+    margin-bottom: .5rem;
+}
+
+.formProfil input {
+    width: 100%;
+    padding: .5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--light-cyan);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--dark-grayish-blue);
+}
+
+
+.formProfil input[type="submit"] {
+    margin-top: 1rem;
+    width: 100%;
+    padding: .5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--light-cyan);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: var(--dark-grayish-blue);
 }

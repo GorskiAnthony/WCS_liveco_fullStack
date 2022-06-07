@@ -94,7 +94,7 @@ class UserController {
     try {
       const { email } = req.body;
       const user = await UserModel.getByEmail(email);
-      if (user) {
+      if (user.id !== req.user.id) {
         res
           .status(409)
           .json({ validationErrors: [{ message: "Email already exists" }] });
