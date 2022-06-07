@@ -15,14 +15,21 @@ class UserController {
       if (error) {
         res.status(422).json({ validationErrors: error.details });
       } else {
-        // if all done, i hash the password
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = await bcrypt.hashSync(password, salt);
-        const user = await UserModel.create({
-          email,
-          password: hashedPassword,
-        });
-        res.status(201).json(user);
+        const user = await UserModel.getByEmail(email);
+        if (user) {
+          res
+            .status(409)
+            .json({ validationErrors: [{ message: "Email already exists" }] });
+        } else {
+          // if all done, i hash the password
+          const salt = bcrypt.genSaltSync(10);
+          const hashedPassword = await bcrypt.hashSync(password, salt);
+          const user = await UserModel.create({
+            email,
+            password: hashedPassword,
+          });
+          res.status(201).json(user);
+        }
       }
     } catch (err) {
       res.status(400).json({ error: err.message });
@@ -53,14 +60,18 @@ class UserController {
               .status(200)
               .json({ id: user.id, email: user.email });
           } else {
-            res.status(401).json({ error: "Invalid password" });
+            res
+              .status(401)
+              .json({ validationErrors: [{ message: "Invalid password" }] });
           }
         } else {
-          res.status(401).json({ error: "Invalid email" });
+          res
+            .status(401)
+            .json({ validationErrors: [{ message: "Invalid email" }] });
         }
       }
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      res.status(400).json({ validationErrors: [{ message: err.message }] });
     }
   }
 }
