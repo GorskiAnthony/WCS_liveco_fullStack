@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import axios from "axios";
+import { setItem, clearItem } from "../services/localStorage";
 import CurrentUserContext from "../context/CurrentUserContext";
 const { notifyError, notifySuccess } = require("../services/notify");
 
@@ -16,10 +17,13 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:5500/api/users", currentUser)
+      .put("http://localhost:5500/api/users", currentUser, {
+        withCredentials: true,
+      })
       .then((res) => {
-        console.log(res);
-        setCurrentUser(res.data);
+        notifySuccess();
+        clearItem("currentUser");
+        setItem("currentUser", res.data);
       })
       .catch((err) => {
         notifyError(err.response.data.validationErrors[0].message);
@@ -50,7 +54,7 @@ const Profile = () => {
             value={currentUser.email}
           />
         </div>
-        <input type="submit" value="mettre à jour" />
+        <input type="submit" value="Mettre à jour" />
       </form>
     </div>
   );

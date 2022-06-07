@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { notifySuccess, notifyError } from "../services/notify";
 import CurrentUserContext from "../context/CurrentUserContext";
+import { setItem } from "../services/localStorage";
 
 const Login = () => {
   const [login, setLogin] = React.useState({
@@ -28,8 +29,8 @@ const Login = () => {
       })
       .then((res) => {
         notifySuccess();
+        setItem("currentUser", res.data);
         setCurrentUser(res.data);
-        localStorage.setItem("user", JSON.stringify(res.data));
         return navigate("/");
       })
       .catch((err) => {

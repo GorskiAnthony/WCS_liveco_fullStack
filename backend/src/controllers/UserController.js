@@ -92,7 +92,19 @@ class UserController {
 
   static async update(req, res) {
     try {
-      res.status(204).json({ message: "Update successful" });
+      const { email } = req.body;
+      const user = await UserModel.getByEmail(email);
+      if (user) {
+        res
+          .status(409)
+          .json({ validationErrors: [{ message: "Email already exists" }] });
+      } else {
+        await UserModel.update(req.body, req.user.id);
+        const user = await UserModel.getByEmail(email);
+        res
+          .status(200)
+          .json({ id: user.id, email: user.email, avatar: user.avatar });
+      }
     } catch (err) {
       res.status(400).json({ error: err.message });
     }

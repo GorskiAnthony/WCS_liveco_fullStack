@@ -1,10 +1,12 @@
 import React, { createContext, useState } from "react";
+import { getItem } from "../services/localStorage";
 
 const CurrentUserContext = createContext(null);
 
 export const CurrentUserContextProvider = ({ children }) => {
-  const user = localStorage.getItem("user");
-  const [currentUser, setCurrentUser] = useState(JSON.parse(user));
+  const user = getItem("currentUser");
+  const [currentUser, setCurrentUser] = useState(user);
+
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
       {children}

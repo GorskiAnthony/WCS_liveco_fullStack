@@ -20,6 +20,13 @@ class UserModel {
     return result;
   }
 
+  async update(user) {
+    const result = await connection
+      .promise()
+      .query(`UPDATE users SET ? WHERE id = ?`, [user, user.id]);
+    return result;
+  }
+
   async generateToken(user) {
     const { id, email } = user;
     const token = await jwt.sign({ id, email }, process.env.JWT_SECRET);

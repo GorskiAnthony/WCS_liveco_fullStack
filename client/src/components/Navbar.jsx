@@ -1,13 +1,15 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { clearItem } from "../services/localStorage";
 import CurrentUserContext from "../context/CurrentUserContext";
 
 const Navbar = () => {
   const { currentUser } = useContext(CurrentUserContext);
   const handleClick = () => {
-    localStorage.removeItem("user");
+    clearItem("currentUser");
     window.location.href = "/";
   };
+
   return (
     <div className="navbar">
       <h1>
