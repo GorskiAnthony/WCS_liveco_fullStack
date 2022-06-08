@@ -20,10 +20,10 @@ class UserModel {
     return result;
   }
 
-  async update(user) {
+  async update(user, id) {
     const result = await connection
       .promise()
-      .query(`UPDATE users SET ? WHERE id = ?`, [user, user.id]);
+      .query(`UPDATE users SET ? WHERE id = ?`, [user, id]);
     return result;
   }
 

@@ -9,7 +9,8 @@ const userRouter = require("./routes/userRouter");
 
 app.use(cookieParser());
 app.use(logger("dev"));
-
+// folder uploads
+app.use("/uploads", express.static("uploads"));
 app.use(
   cors({
     origin: "http://localhost:3000",

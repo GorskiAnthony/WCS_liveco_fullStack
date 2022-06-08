@@ -93,20 +93,30 @@ class UserController {
   static async update(req, res) {
     try {
       const { email } = req.body;
-      const user = await UserModel.getByEmail(email);
-      if (user.id !== req.user.id) {
+      const existingUser = await UserModel.getByEmail(email);
+
+      if (!existingUser) {
+        await UserModel.update({ email }, req.user.id);
+        res.status(200).json({ message: "Update successful" });
+      } else if (existingUser.id !== req.user.id) {
         res
           .status(409)
           .json({ validationErrors: [{ message: "Email already exists" }] });
       } else {
-        await UserModel.update(req.body, req.user.id);
-        const user = await UserModel.getByEmail(email);
+        await UserModel.update(
+          { email, avatar: req.files.image.newFilename },
+          req.user.id
+        );
         res
           .status(200)
-          .json({ id: user.id, email: user.email, avatar: user.avatar });
+          .json({
+            id: existingUser.id,
+            email: existingUser.email,
+            avatar: existingUser.avatar,
+          });
       }
     } catch (err) {
-      res.status(400).json({ error: err.message });
+      res.status(400).json({ validationErrors: [{ message: err.message }] });
     }
   }
 }

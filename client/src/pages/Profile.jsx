@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { setItem, clearItem } from "../services/localStorage";
 import CurrentUserContext from "../context/CurrentUserContext";
@@ -6,6 +6,11 @@ const { notifyError, notifySuccess } = require("../services/notify");
 
 const Profile = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [saveImg, setSaveImg] = useState();
+
+  const saveImage = (e) => {
+    setSaveImg(e.target.files[0]);
+  };
 
   const handleChange = (e) => {
     setCurrentUser({
@@ -16,8 +21,13 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", saveImg);
+    formData.append("email", currentUser.email);
+
     axios
-      .put("http://localhost:5500/api/users", currentUser, {
+      .put("http://localhost:5500/api/users", formData, {
         withCredentials: true,
       })
       .then((res) => {
@@ -37,7 +47,7 @@ const Profile = () => {
         <img
           src={
             currentUser.avatar
-              ? currentUser.avatar
+              ? `http://localhost:5500/uploads/${currentUser.avatar}`
               : `https://robohash.org/${currentUser.id}`
           }
           alt="avatar"
@@ -53,7 +63,7 @@ const Profile = () => {
             onChange={handleChange}
             value={currentUser.email}
           />
-          <input type="file" />
+          <input type="file" name="avatar" onChange={saveImage} />
         </div>
         <input type="submit" value="Mettre à jour" />
       </form>
